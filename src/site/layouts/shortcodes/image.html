@@ -1,6 +1,9 @@
-{{- $src := .Get "src" -}}
-{{- with .Parent -}}
-  <img src="{{$src}}" class="{{.Get "class"}}-image">
-{{- else -}}
-  <img src="{{$src}}">
-{{- end }}
+{{- $fullsrc := .Get "src" -}}
+{{- $ext :=  index (findRE `\..[^\.]+$` $fullsrc) 0 -}}
+{{- $src := replaceRE `\..[^\.]+$` "" $fullsrc -}}
+
+<picture>
+  <source srcset="{{$src}}-800.webp 800w, {{$src}}-350.webp 700w" type="image/webp" />
+  <source srcset="{{$src}}-800{{$ext}} 800w, {{$src}}-350{{$ext}} 350w" type="image/jpeg" />
+  <img src="{{$fullsrc}}" />
+</picture>
