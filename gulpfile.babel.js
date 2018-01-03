@@ -1,6 +1,4 @@
 import gulp from "gulp";
-import { spawn } from "child_process";
-import hugo from "hugo-bin";
 import BrowserSync from "browser-sync";
 
 import { buildSite } from "./gulp_tasks/hugo.tasks";
