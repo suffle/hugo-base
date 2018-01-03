@@ -13,6 +13,7 @@
     "babel-register": "^6.26.0",
     "browser-sync": "^2.18.13",
     "clean-webpack-plugin": "^0.1.17",
+    "critical": "^1.1.0",
     "css-mqpacker": "^6.0.1",
     "cssnano": "^3.10.0",
     "cssnano-preset-default": "^4.0.0-rc.2",
@@ -36,6 +37,7 @@
     "postcss-import": "^11.0.0",
     "precss": "^2.0.0",
     "prettier": "^1.9.2",
+    "sharp": "^0.18.4",
     "uglifyjs-webpack-plugin": "^1.1.5",
     "webpack": "^3.10.0",
     "webpack-merge": "^4.1.1"

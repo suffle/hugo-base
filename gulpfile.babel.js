@@ -2,7 +2,7 @@ import gulp from "gulp";
 import BrowserSync from "browser-sync";
 
 import { buildSite } from "./gulp_tasks/hugo.tasks";
-import { cssDev, cssProd } from "./gulp_tasks/css.tasks";
+import { cssDev, cssProd, criticalCss } from "./gulp_tasks/css.tasks";
 import {
   getWebpackInstance,
   webpackErrorHandling
@@ -12,7 +12,7 @@ import { imageDevTasks, imageProdTasks } from "./gulp_tasks/images.tasks";
 const browserSync = BrowserSync.create();
 
 const siteSrc = "src/site";
-const siteDest = "./dist/";
+const siteDest = "./dist";
 
 const cssSrc = "src/css/*.css";
 const cssDest = "./dist/css";
@@ -32,6 +32,11 @@ gulp.task(
     env === "production"
       ? cssProd(cssSrc, cssDest)
       : cssDev(cssSrc, cssDest, browserSync)
+);
+
+gulp.task(
+  "criticalCss",
+  gulp.series(criticalCss.bind(null, siteDest + "/**/*.html", siteDest))
 );
 
 gulp.task("js", cb => {
