@@ -4407,7 +4407,7 @@ https-proxy-agent@^2.1.0:
     agent-base "^4.1.0"
     debug "^3.1.0"
 
-hugo-bin@^0.18.0:
+hugo-bin@^0.18.1:
   version "0.18.1"
   resolved "https://registry.yarnpkg.com/hugo-bin/-/hugo-bin-0.18.1.tgz#6691d42773f977bb52aa905f9e0c44089aa0dd62"
   dependencies:

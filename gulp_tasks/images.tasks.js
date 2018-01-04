@@ -3,6 +3,8 @@ import responsive from "gulp-responsive";
 import responsiveConfig from "gulp-responsive-config";
 import imagemin from "gulp-imagemin";
 
+import { responsiveOptions } from "../config/images.conf";
+
 export const createResponsiveImages = (src, dest, configDirs) => {
   const config = responsiveConfig(configDirs, {
     extensions: ["jpg", "jpeg", "png", "webp"]
@@ -15,21 +17,12 @@ export const createResponsiveImages = (src, dest, configDirs) => {
 
   return gulp
     .src(src + "/*.{png,jpg,webp}")
-    .pipe(
-      responsive([...config, ...fallback], {
-        quality: 80,
-        progressive: true,
-        withMetadata: false
-      })
-    )
+    .pipe(responsive([...config, ...fallback], responsiveOptions))
     .pipe(gulp.dest(dest));
 };
 
-export const copyNonResponsiveImages = () => {
-  return gulp
-    .src("src/img/*.svg")
-    .pipe(imagemin([imagemin.gifsicle(), imagemin.svgo()], { verbose: true }))
-    .pipe(gulp.dest("dist/img"));
+export const copyNonResponsiveImages = (src, dest) => {
+  return gulp.src(src).pipe(gulp.dest(dest));
 };
 
 export const minifyImages = imgDir => {
@@ -52,7 +45,7 @@ export const minifyImages = imgDir => {
 export const imageDevTasks = ({ imgSrc, imgDest, configSources }) => {
   return gulp.parallel(
     createResponsiveImages.bind(null, imgSrc, imgDest, configSources),
-    copyNonResponsiveImages
+    copyNonResponsiveImages.bind(null, imgSrc + "/*.{svg,gif}", imgDest)
   );
 };
 

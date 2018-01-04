@@ -2,7 +2,13 @@
   "name": "hugo-base",
   "version": "1.0.0",
   "description": "A boilerplate for hugo",
-  "scripts": {},
+  "scripts": {
+    "start": "npm run watch",
+    "watch": "./node_modules/.bin/gulp watch || true",
+    "build:dev": "./node_modules/.bin/gulp build",
+    "build:prod": "NODE_ENV=production ./node_modules/.bin/gulp build",
+    "clean": "./node_modules/.bin/gulp clean"
+  },
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -17,6 +23,7 @@
     "css-mqpacker": "^6.0.1",
     "cssnano": "^3.10.0",
     "cssnano-preset-default": "^4.0.0-rc.2",
+    "del": "^3.0.0",
     "eslint": "^4.14.0",
     "eslint-config-react-app": "^2.0.1",
     "eslint-plugin-flowtype": "^2.40.1",
@@ -32,7 +39,7 @@
     "gulp-responsive-config": "git+https://git@github.com/suffle/gulp-responsive-config#master",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-util": "^3.0.8",
-    "hugo-bin": "^0.18.0",
+    "hugo-bin": "^0.18.1",
     "postcss-cssnext": "^3.0.2",
     "postcss-import": "^11.0.0",
     "precss": "^2.0.0",

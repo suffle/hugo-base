@@ -12,5 +12,7 @@ export const buildSite = (src, dest, cb, env = "development") => {
 
   process.env.NODE_ENV = env;
 
-  spawn(hugo, args, { stdio: "inherit" }).on("close", cb);
+  spawn(hugo, args, { stdio: "inherit" }).on("close", code => {
+    cb(code);
+  });
 };

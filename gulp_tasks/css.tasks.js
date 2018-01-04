@@ -3,7 +3,6 @@ import gutil from "gulp-util";
 
 import sourceMaps from "gulp-sourcemaps";
 import postCss from "gulp-postcss";
-import cssImport from "postcss-import";
 import cssNext from "postcss-cssnext";
 import precss from "precss";
 import mqpacker from "css-mqpacker";
@@ -18,14 +17,13 @@ const postCssDefaultPlugins = [precss(precssConfig), cssNext(), mqpacker()];
 
 const postCssProdPlugins = [];
 
-export const cssDev = (src, dest, browserSync) => {
+export const cssDev = (src, dest) => {
   return gulp
     .src(src)
     .pipe(sourceMaps.init())
     .pipe(postCss(postCssDefaultPlugins))
     .pipe(sourceMaps.write("."))
-    .pipe(gulp.dest(dest))
-    .pipe(browserSync.stream());
+    .pipe(gulp.dest(dest));
 };
 
 export const cssProd = (src, dest) => {
@@ -39,16 +37,18 @@ export const cssProd = (src, dest) => {
     .pipe(gulp.dest(dest));
 };
 
-export const criticalCss = (src, dest) => {
+export const criticalCss = (src, dest, cb) => {
+  const config = Object.assign({}, criticalConf, {
+    base: dest
+  });
+
+  process.setMaxListeners(0);
   return gulp
     .src(src)
-    .pipe(
-      critical.stream(Object.assign(criticalConf, {
-        base: dest
-      })
-    )
-    .on("error", function(err) {
+    .pipe(critical.stream(config))
+    .on("error", err => {
       gutil.log(gutil.colors.red(err.message));
+      cb();
     })
     .pipe(gulp.dest(dest));
 };
