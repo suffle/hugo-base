@@ -7,6 +7,7 @@ import cssNext from "postcss-cssnext";
 import precss from "precss";
 import mqpacker from "css-mqpacker";
 import cssnano from "cssnano";
+import uncss from "uncss";
 import critical from "critical";
 
 import cssnanoConfig from "../config/cssnano.conf";
@@ -26,8 +27,12 @@ export const cssDev = (src, dest) => {
     .pipe(gulp.dest(dest));
 };
 
-export const cssProd = (src, dest) => {
-  const postCssPlugins = [...postCssDefaultPlugins, ...postCssProdPlugins];
+export const cssProd = (src, dest, htmlDest) => {
+  const postCssPlugins = [
+    ...postCssDefaultPlugins,
+    ...postCssProdPlugins,
+    uncss.postcssPlugin({ html: htmlDest })
+  ];
 
   // For some reason cssnano must be called separately to work correctly
   return gulp

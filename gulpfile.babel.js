@@ -2,7 +2,7 @@ import gulp from "gulp";
 import BrowserSync from "browser-sync";
 import del from "del";
 
-import { buildSite } from "./gulp_tasks/hugo.tasks";
+import { buildSite, minifyHtml } from "./gulp_tasks/hugo.tasks";
 import { cssDev, cssProd, criticalCss } from "./gulp_tasks/css.tasks";
 import {
   getWebpackInstance,
@@ -52,13 +52,18 @@ gulp.task(
   "css",
   () =>
     env === "production"
-      ? cssProd(cssSrc, cssDest)
+      ? cssProd(cssSrc, cssDest, siteDest + "/**/*.html")
       : cssDev(cssSrc, cssDest).pipe(browserSync.stream())
 );
 
 gulp.task(
   "criticalCss",
   gulp.series(criticalCss.bind(null, siteDest + "/**/*.html", siteDest))
+);
+
+gulp.task(
+  "minifyHtml",
+  gulp.series(minifyHtml.bind(null, siteDest + "/**/*.html", siteDest))
 );
 
 gulp.task("js", cb => {
@@ -115,7 +120,7 @@ gulp.task("hugo", cb => {
 
 gulp.task(
   "additionalBuildSteps",
-  env === "production" ? gulp.series("criticalCss") : cb => cb()
+  env === "production" ? gulp.series("criticalCss", "minifyHtml") : cb => cb()
 );
 
 /** Some of the tasks in the build step could also be run parallel,

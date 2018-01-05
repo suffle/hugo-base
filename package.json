@@ -7,7 +7,10 @@
     "watch": "./node_modules/.bin/gulp watch || true",
     "build:dev": "./node_modules/.bin/gulp build",
     "build:prod": "NODE_ENV=production ./node_modules/.bin/gulp build",
-    "clean": "./node_modules/.bin/gulp clean"
+    "clean": "./node_modules/.bin/gulp clean",
+    "lintjs": "./node_modules/.bin/eslint src/js/**/*.js",
+    "deploy": "npm run lintjs && npm run build:prod",
+    "check-performance": "./node_modules/.bin/lighthouse"
   },
   "author": "",
   "license": "MIT",
@@ -33,6 +36,7 @@
     "eslint-plugin-react": "^7.5.1",
     "gulp": "^4.0.0",
     "gulp-babel": "^7.0.0",
+    "gulp-htmlmin": "^4.0.0",
     "gulp-imagemin": "^4.1.0",
     "gulp-postcss": "^7.0.0",
     "gulp-responsive": "^2.8.0",
@@ -40,12 +44,14 @@
     "gulp-sourcemaps": "^2.6.1",
     "gulp-util": "^3.0.8",
     "hugo-bin": "^0.18.1",
+    "lighthouse": "^2.7.0",
     "postcss-cssnext": "^3.0.2",
     "postcss-import": "^11.0.0",
     "precss": "^2.0.0",
     "prettier": "^1.9.2",
     "sharp": "^0.18.4",
     "uglifyjs-webpack-plugin": "^1.1.5",
+    "uncss": "^0.16.1",
     "webpack": "^3.10.0",
     "webpack-merge": "^4.1.1"
   }
