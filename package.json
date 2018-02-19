@@ -10,7 +10,7 @@
     "clean": "./node_modules/.bin/gulp clean",
     "lintjs": "./node_modules/.bin/eslint src/js/**/*.js",
     "deploy": "npm run lintjs && npm run build:prod",
-    "check-performance": "./node_modules/.bin/lighthouse"
+    "check-performance": "./node_modules/.bin/lighthouse --chrome-flags=\"--headless\" --output-path"
   },
   "author": "",
   "license": "MIT",
@@ -21,6 +21,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "browser-sync": "^2.18.13",
+    "chrome-launcher": "^0.10.0",
     "clean-webpack-plugin": "^0.1.17",
     "critical": "^1.1.0",
     "css-mqpacker": "^6.0.1",
@@ -45,6 +46,7 @@
     "gulp-util": "^3.0.8",
     "hugo-bin": "^0.18.1",
     "lighthouse": "^2.7.0",
+    "lighthouse-logger": "^1.0.1",
     "postcss-cssnext": "^3.0.2",
     "postcss-import": "^11.0.0",
     "precss": "^2.0.0",
