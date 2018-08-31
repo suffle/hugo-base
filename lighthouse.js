@@ -1,13 +1,13 @@
 const lighthouse = require("lighthouse");
-const ReportGenerator = require("lighthouse/lighthouse-core/report/v2/report-generator");
+const ReportGenerator = require("lighthouse/lighthouse-core/report/report-generator");
 const logger = require("lighthouse-logger");
 const chromeLauncher = require("chrome-launcher");
 const fs = require("fs");
 const path = require("path");
 const opn = require("opn");
 
-const defaultConf = require("./config/lighthouse.conf");
-// const defaultConf = require("lighthouse/lighthouse-core/config/default");
+//const defaultConf = require("./config/lighthouse.conf");
+const defaultConf = require("lighthouse/lighthouse-core/config/default-config");
 
 function runLighthouse(url, flags = {}, config = null) {
   return chromeLauncher.launch(flags).then(chrome => {
@@ -55,32 +55,28 @@ const generateOutput = (results, config, mode = "html") => {
 };
 
 runLighthouse("https://viebrockhaus.de", flags, defaultConf).then(results => {
-  const cwd = process.cwd();
-  const extension = flags.output || "html";
-
-  const fileName = generateFilename(flags.output);
-  const filePath = flags.outputPath || "./reports";
-  const resultFile = path.join(cwd, filePath, fileName);
-  const artifacts = results.artifacts;
-  delete results.artifacts;
-  const content = generateOutput(results, defaultConf, flags.output);
-
-  if (!fs.existsSync(filePath)) {
-    fs.mkdirSync(filePath);
-  }
-
-  fs.writeFile(resultFile, content, err => {
-    if (err) {
-      logger.error("performance-Check: ", err);
-    } else {
-      logger.log(
-        "Performance-Check: ",
-        `Report written as ${extension} to ${resultFile}`
-      );
-
-      if (flags.view) {
-        opn(resultFile, { wait: false });
-      }
-    }
-  });
+  // const cwd = process.cwd();
+  // const extension = flags.output || "html";
+  // const fileName = generateFilename(flags.output);
+  // const filePath = flags.outputPath || "./reports";
+  // const resultFile = path.join(cwd, filePath, fileName);
+  // const artifacts = results.artifacts;
+  // delete results.artifacts;
+  // const content = generateOutput(results, defaultConf, flags.output);
+  // if (!fs.existsSync(filePath)) {
+  //   fs.mkdirSync(filePath);
+  // }
+  // fs.writeFile(resultFile, content, err => {
+  //   if (err) {
+  //     logger.error("performance-Check: ", err);
+  //   } else {
+  //     logger.log(
+  //       "Performance-Check: ",
+  //       `Report written as ${extension} to ${resultFile}`
+  //     );
+  //     if (flags.view) {
+  //       opn(resultFile, { wait: false });
+  //     }
+  //   }
+  // });
 });

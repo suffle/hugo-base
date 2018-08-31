@@ -4,6 +4,7 @@ import gutil from "gulp-util";
 import sourceMaps from "gulp-sourcemaps";
 import postCss from "gulp-postcss";
 import cssNext from "postcss-cssnext";
+import postcssPresetEnv from "postcss-preset-env";
 import precss from "precss";
 import mqpacker from "css-mqpacker";
 import cssnano from "cssnano";
@@ -14,7 +15,11 @@ import cssnanoConfig from "../config/cssnano.conf";
 import precssConfig from "../config/precss.conf";
 import criticalConf from "../config/critical.conf";
 
-const postCssDefaultPlugins = [precss(precssConfig), cssNext(), mqpacker()];
+const postCssDefaultPlugins = [
+  precss(precssConfig),
+  postcssPresetEnv(),
+  mqpacker()
+];
 
 const postCssProdPlugins = [];
 
