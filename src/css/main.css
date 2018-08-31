@@ -1,0 +1,17 @@
+@import './modules/module.css';
+
+
+html {
+    background: var(--bgColor);
+    color: $red;
+}
+
+h2 {
+    color: turquoise;
+}
+
+@media (--small-viewport) {
+    :--button {
+        @mixin bg-color $red;
+    }
+}

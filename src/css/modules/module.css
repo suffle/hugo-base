@@ -1,0 +1,25 @@
+$red: green;
+@custom-media --small-viewport (max-width: 30em);
+@custom-selector :--button button, .button;
+@custom-selector :--enter :hover, :focus;
+
+:root {
+    --bgColor: purple;
+}
+
+
+h1 {
+    color: gray;
+}
+
+@define-mixin bg-color $color {
+    background-color: $color;
+}
+
+@media (--small-viewport) {
+    :--button:--enter {
+        @mixin bg-color $red;
+       z-index: 500;
+    }
+}
+
